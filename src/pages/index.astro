@@ -1,16 +1,15 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-24">
+		<p class="text-sm font-medium tracking-widest text-stone-500 uppercase dark:text-stone-400">
+			Portfolio
+		</p>
+		<h1 class="mt-4 text-5xl font-semibold tracking-tight sm:text-7xl">Dan Hiester</h1>
+		<p class="mt-6 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+			Work in progress. If this text is styled, Tailwind is working.
+		</p>
+	</main>
+</Layout>
