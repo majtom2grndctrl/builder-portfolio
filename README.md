@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+# builder-portfolio
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Dan Hiester's portfolio of things built. Astro + Tailwind, content in Sanity, analytics in PostHog, hosted on Netlify.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command       | What it does                                          |
+| :------------ | :---------------------------------------------------- |
+| `pnpm dev`    | Dev server at `localhost:4321`, Studio at `/studio`   |
+| `pnpm build`  | Static build to `dist/` (fetches content from Sanity) |
+| `pnpm check`  | Type-check `.astro` and `.ts` files                   |
+| `pnpm format` | Format everything with Prettier                       |
+| `pnpm verify` | Format check + type check + build (what CI runs)      |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Services
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+| Service | Where                                    | Notes                                                             |
+| :------ | :--------------------------------------- | :---------------------------------------------------------------- |
+| Sanity  | Project `ylv78mng`, dataset `production` | Studio is embedded at `/studio`. Schema lives in `src/sanity/`.   |
+| PostHog | US cloud, project `649765`               | Loads only in production builds (`src/components/PostHog.astro`). |
+| Netlify | Config in `netlify.toml`                 | Public env values are set there; nothing secret is required yet.  |
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+All values in `.env.example` and `netlify.toml` are public client-side keys. Never commit a Sanity API token.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Content flow
 
-Any static assets, like images, can be placed in the `public/` directory.
+The site is static: content is fetched from Sanity at build time. To publish content changes automatically, add a Netlify build hook and point a Sanity webhook at it (see Setup below).
 
-## 🧞 Commands
+## Setup checklist
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [ ] `git push -u origin main`
+- [ ] Netlify → Add new project → Import from GitHub → `builder-portfolio` (build settings come from `netlify.toml`)
+- [ ] Sanity → API → CORS origins → add the Netlify URL, **Allow credentials** on (needed for `/studio` in production)
+- [ ] Netlify → Project configuration → Build hooks → create "Sanity publish"; Sanity → API → Webhooks → paste the hook URL, trigger on create/update/delete, filter `_type == "project"`
+- [ ] Optional: custom domain in Netlify, then set `SITE_URL` there and add the domain to Sanity CORS
