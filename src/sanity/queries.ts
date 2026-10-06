@@ -1,4 +1,4 @@
-import { sanityClient } from 'sanity:client';
+import { sanityClient } from './client';
 
 export interface ProjectSummary {
 	_id: string;
