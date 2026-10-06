@@ -2,6 +2,7 @@
 	"name": "builder-portfolio",
 	"type": "module",
 	"version": "0.0.1",
+	"packageManager": "pnpm@11.25.0",
 	"engines": {
 		"node": ">=22.12.0"
 	},
@@ -16,10 +17,19 @@
 		"verify": "pnpm format:check && pnpm check && pnpm build"
 	},
 	"dependencies": {
+		"@astrojs/react": "^7.0.0",
 		"@astrojs/sitemap": "^3.7.4",
+		"@sanity/astro": "^3.5.1",
+		"@sanity/client": "^8.9.0",
+		"@sanity/vision": "^6.17.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.3.6",
 		"posthog-js": "^1.438.1",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
+		"react-is": "^19.3.0",
+		"sanity": "^6.17.0",
+		"styled-components": "^6.5.3",
 		"tailwindcss": "^4.3.3"
 	},
 	"allowScripts": {

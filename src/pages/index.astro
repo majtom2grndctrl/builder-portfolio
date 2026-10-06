@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getProjects } from '../sanity/queries';
+
+const projects = await getProjects();
 ---
 
 <Layout>
@@ -11,5 +14,31 @@ import Layout from '../layouts/Layout.astro';
 		<p class="mt-6 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">
 			Work in progress. If this text is styled, Tailwind is working.
 		</p>
+
+		{projects.length > 0 && (
+			<section class="mt-16" aria-labelledby="projects-heading">
+				<h2
+					id="projects-heading"
+					class="text-sm font-medium tracking-widest text-stone-500 uppercase dark:text-stone-400"
+				>
+					Projects
+				</h2>
+				<ul class="mt-6 space-y-6">
+					{projects.map((project) => (
+						<li>
+							<h3 class="text-xl font-semibold">{project.title}</h3>
+							{project.summary && (
+								<p class="mt-1 text-stone-600 dark:text-stone-300">{project.summary}</p>
+							)}
+							{project.stack && project.stack.length > 0 && (
+								<p class="mt-2 text-sm text-stone-500 dark:text-stone-400">
+									{project.stack.join(' · ')}
+								</p>
+							)}
+						</li>
+					))}
+				</ul>
+			</section>
+		)}
 	</main>
 </Layout>
